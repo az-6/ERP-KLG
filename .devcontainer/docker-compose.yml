@@ -1,0 +1,44 @@
+services:
+  mariadb:
+    image: mariadb:11.8
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-123}
+      MARIADB_AUTO_UPGRADE: "1"
+    volumes:
+      - mariadb-data:/var/lib/mysql
+
+  redis-cache:
+    image: redis:alpine
+
+  redis-queue:
+    image: redis:alpine
+
+  frappe:
+    image: frappe/bench:latest
+    command: sleep infinity
+    environment:
+      SHELL: /bin/bash
+    volumes:
+      - ..:/workspace:cached
+      # Keep Bench, Frappe, ERPNext, node_modules, and Git metadata on
+      # Docker's Linux filesystem. Bind-mounting these under C:\ is slow.
+      - frappe-bench-data:/workspace/development
+      # Only the small KLG app is bind-mounted for host-side editing/versioning.
+      - ../apps/klg_erp:/workspace/development/frappe-bench/apps/klg_erp:cached
+    working_dir: /workspace/development
+    ports:
+      - "8000:8000"
+      - "9000:9000"
+      - "6787:6787"
+    depends_on:
+      - mariadb
+      - redis-cache
+      - redis-queue
+
+volumes:
+  mariadb-data:
+  frappe-bench-data:

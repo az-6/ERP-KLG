@@ -1,0 +1,19 @@
+# Local and generated files
+.env
+.env.*
+!.env.example
+*.log
+__pycache__/
+.pytest_cache/
+node_modules/
+
+# Frappe runtime data
+sites/
+logs/
+assets/
+development/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
