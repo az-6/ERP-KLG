@@ -24,9 +24,9 @@ pertama yang terhenti dan tidak digunakan lagi.
 - Custom app `klg_erp 0.0.1`
 - Site: `klg.localhost`
 - URL: <http://klg.localhost:8000>
-- Kredensial development awal: `Administrator` / `admin`
+- Kredensial development disimpan hanya pada konfigurasi lokal dan tidak dicatat di repository.
 
-Kredensial tersebut hanya untuk development lokal dan wajib diganti pada deployment nyata.
+Kredensial development tidak boleh digunakan pada deployment nyata.
 
 ## Menjalankan Bench
 
@@ -40,4 +40,14 @@ Verifikasi:
 
 ```bash
 curl http://klg.localhost:8000/api/method/ping
+```
+
+## Migrasi schema dan test
+
+```bash
+docker compose -f .devcontainer/docker-compose.yml exec -T frappe \
+  bash -lc 'cd /workspace/development/frappe-bench && bench --site klg.localhost migrate'
+
+docker compose -f .devcontainer/docker-compose.yml exec -T frappe \
+  bash -lc 'cd /workspace/development/frappe-bench && bench --site klg.localhost run-tests --app klg_erp'
 ```

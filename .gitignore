@@ -3,6 +3,8 @@
 .env.*
 !.env.example
 *.log
+.analysis/
+/Dokumen-erp.pdf
 __pycache__/
 .pytest_cache/
 node_modules/

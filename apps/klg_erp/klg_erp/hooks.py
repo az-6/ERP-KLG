@@ -85,8 +85,8 @@ app_license = "mit"
 # Installation
 # ------------
 
-# before_install = "klg_erp.install.before_install"
-# after_install = "klg_erp.install.after_install"
+after_install = "klg_erp.setup.install.after_install"
+after_migrate = "klg_erp.setup.install.after_migrate"
 
 # Uninstallation
 # ------------
@@ -144,13 +144,11 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Batch": {
+		"validate": "klg_erp.overrides.batch.validate_batch_owner",
+	}
+}
 
 # Scheduled Tasks
 # ---------------

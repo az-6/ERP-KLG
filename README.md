@@ -13,6 +13,9 @@ Tidak boleh ada dua stock ledger atau accounting ledger yang sama-sama dapat dit
 - `deployment/frappe_docker/` — submodule resmi Frappe Docker.
 - `docs/architecture/` — desain integrasi yang telah disepakati.
 - `docs/decisions/` — keputusan arsitektur.
+- `docs/analysis/` — analisis kebutuhan dari dokumen sumber.
+- `docs/requirements/` — baseline kebutuhan bisnis yang telah dikonfirmasi.
+- `docs/implementation/` — catatan tracer bullet yang telah dibangun dan diuji.
 - `contracts/` — kontrak API Tuna Engine ↔ ERPNext.
 - `apps/klg_erp/` — custom Frappe app; dibuat melalui Bench pada development environment.
 
@@ -43,6 +46,7 @@ docker compose -f pwd.yml down
 ## Urutan kerja
 
 1. ~~Spike representasi loin di ERPNext (Batch vs Serial Number).~~ Selesai: satu Batch per loin; lihat `docs/decisions/0002-loin-as-erpnext-batch.md`.
-2. Buat development bench dan custom app `klg_erp`.
-3. Implementasi kontrak idempoten dan read-back reconciliation.
-4. Hubungkan Tuna Engine tanpa menjadikan ledger lokal sebagai ledger kedua.
+2. ~~Buat development bench dan custom app `klg_erp`.~~ Selesai.
+3. ~~Tambahkan schema traceability loin pada ERPNext Batch.~~ Selesai dan diuji; lihat `docs/implementation/0001-batch-traceability-schema.md`.
+4. Implementasi kontrak idempoten dan read-back reconciliation.
+5. Hubungkan Tuna Engine tanpa menjadikan ledger lokal sebagai ledger kedua.
